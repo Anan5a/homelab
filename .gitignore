@@ -1,0 +1,35 @@
+# Sensitive files
+*.env
+secrets.yaml
+*.key
+*.pem
+*.pfx
+*.jks
+.vault_pass
+.passwd
+id_rsa*
+ssh/*.key
+ansible/vault.yml
+
+# Logs
+*.log
+logs/
+tmp/
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# Terraform specific
+.terraform/
+*.tfplan
+*.tfstate
+*.tfstate.backup
+
+# Docker specific
+.dockerignore
+
+# Kubernetes specific
+kubeconfig

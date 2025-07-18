@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  reverse-proxy:
+    container_name: "Traefik proxy (entrypoint)"
+    image: traefik:v3.4
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Port for the Traefik Web UI
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # So that Traefik can listen to the Docker events (read-only)
+      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro # Mount traefik.yml into the container
+      # - ./config:/etc/traefik/dynamic:ro
+    networks:
+      - homelab-net # Reference the shared network
+
+networks:
+  homelab-net:
+    external: true

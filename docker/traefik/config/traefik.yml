@@ -1,0 +1,25 @@
+# docker/traefik/traefik.yml
+# This is the static configuration for Traefik
+
+api:
+  insecure: true
+
+providers:
+  docker:
+    exposedByDefault: false
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure: # Recommended for HTTPS traffic
+    address: ":443"
+  traefik: # Entrypoint for the Traefik dashboard
+    address: ":8080"
+
+log:
+  level: DEBUG # DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+  # filePath: "/var/log/traefik/traefik.log" # Uncomment to enable file logging, ensure volume mount for this path
+# You might want to add access logs here too
+# accessLog:
+#   filePath: "/var/log/traefik/access.log"
+#   format: common
