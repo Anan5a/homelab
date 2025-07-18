@@ -15,6 +15,6 @@ services:
     networks:
       - homelab-net # Reference the shared network
 
-networks:
-  homelab-net:
-    external: true
+# networks:
+#   homelab-net:
+#     external: true
