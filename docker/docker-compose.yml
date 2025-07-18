@@ -3,7 +3,3 @@ name: "Homelab v1.0.0"
 include:
   - ./network.yml
   - traefik/docker-compose.yml
-
-networks:
-  homelab-net:
-    external: true
