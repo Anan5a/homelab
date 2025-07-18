@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   reverse-proxy:
-    container_name: "Traefik proxy (entrypoint)"
+    container_name: "traefik-proxy-entrypoint"
     image: traefik:v3.4
     restart: unless-stopped
     ports:
