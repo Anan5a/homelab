@@ -55,7 +55,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.sso.entrypoints=web"
-      - "traefik.http.routers.sso.role=Host(`sso.lab.sayem.pro`)"
+      - "traefik.http.routers.sso.rule=Host(`sso.lab.sayem.pro`)"
       - "traefik.http.services.sso.loadbalancer.server.port=9000"
     depends_on:
       postgresql:
