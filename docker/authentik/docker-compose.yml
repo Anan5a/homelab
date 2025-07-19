@@ -52,6 +52,11 @@ services:
     ports:
       - "${COMPOSE_PORT_HTTP:-9000}:9000"
       - "${COMPOSE_PORT_HTTPS:-9443}:9443"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sso.entrypoints=web"
+      - "traefik.http.routers.sso.role=Host(`sso.lab.sayem.pro`)"
+      - "traefik.http.services.sso.loadbalancer.server.port=9000"
     depends_on:
       postgresql:
         condition: service_healthy
