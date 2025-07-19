@@ -17,6 +17,8 @@ services:
       POSTGRES_DB: ${PG_DB:-authentik}
     env_file:
       - .env
+    networks:
+      - homelab-net
   redis:
     image: docker.io/library/redis:alpine
     command: --save 60 1 --loglevel warning
@@ -29,6 +31,8 @@ services:
       timeout: 3s
     volumes:
       - redis:/data
+    networks:
+      - homelab-net
   server:
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.6.3}
     restart: unless-stopped
@@ -53,6 +57,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    networks:
+      - homelab-net
   worker:
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.6.3}
     restart: unless-stopped
@@ -83,6 +89,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    networks:
+      - homelab-net
 
 volumes:
   database:

@@ -3,3 +3,4 @@ name: "Homelab v1.0.0"
 include:
   - ./network.yml
   - traefik/docker-compose.yml
+  - authentik/docker-compose.yml
