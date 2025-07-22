@@ -55,7 +55,10 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.sso.entrypoints=web"
+      - "traefik.http.routers.sso-tls.entrypoints=websecure"
       - "traefik.http.routers.sso.rule=Host(`sso.lab.sayem.pro`)"
+      - "traefik.http.routers.sso.tls=true"
+      - "traefik.http.routers.sso.tls.certresolver=cf-letsencrypt"
       - "traefik.http.services.sso.loadbalancer.server.port=9000"
     depends_on:
       postgresql:
