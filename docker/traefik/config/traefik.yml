@@ -20,7 +20,7 @@ certificatesResolvers:
   cf-letsencrypt:
     acme:
       email: ananta.ap65@gmail.com
-      storage: "/acme.json"
+      storage: "/letsencrypt/acme.json"
       # Configure DNS-01 challenge (essential for wildcards)
       dnsChallenge:
         provider: cloudflare # Replace with your DNS provider (e.g., cloudflare, namecheap, google, digitalocean)
