@@ -10,11 +10,18 @@ services:
       - "8080:8080" # Port for the Traefik Web UI
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro # So that Traefik can listen to the Docker events (read-only)
-      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro # Mount traefik.yml into the container
-      # - ./config:/etc/traefik/dynamic:ro
+      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./config/acme.json:/acme.json
+      - ./config/dynamic:/etc/traefik/dynamic:ro
+    labels:
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=lab.sayem.pro"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.lab.sayem.pro"
+      - "traefik.http.routers.traefik-secure.tls.domains[1].main=sayem.pro"
+      - "traefik.http.routers.traefik-secure.tls.domains[1].sans=*.sayem.pro"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+    env_file:
+      - ../../.env
+
     networks:
       - homelab-net # Reference the shared network
 
-# networks:
-#   homelab-net:
-#     external: true

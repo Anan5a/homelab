@@ -16,6 +16,16 @@ entryPoints:
   traefik: # Entrypoint for the Traefik dashboard
     address: ":8080"
 
+certificatesResolvers:
+  cf-letsencrypt:
+    acme:
+      email: ananta.ap65@gmail.com
+      storage: "/acme.json"
+      # Configure DNS-01 challenge (essential for wildcards)
+      dnsChallenge:
+        provider: cloudflare # Replace with your DNS provider (e.g., cloudflare, namecheap, google, digitalocean)
+        delayBeforeCheck: "30s" # Usually fine, but increase if you experience DNS propagation issues
+
 log:
   level: DEBUG # DEBUG, INFO, WARN, ERROR, FATAL, PANIC
   # filePath: "/var/log/traefik/traefik.log" # Uncomment to enable file logging, ensure volume mount for this path
