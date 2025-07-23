@@ -4,3 +4,4 @@ include:
   - ./network.yml
   - traefik/docker-compose.yml
   - authentik/docker-compose.yml
+  - pihole/docker-compose.yml
