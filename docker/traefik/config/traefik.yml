@@ -10,6 +10,10 @@ providers:
   file:
     directory: "/etc/traefik/dynamic"
 
+serversTransports:
+  forceInsecureTransport:
+    insecureSkipVerify: true
+
 entryPoints:
   web:
     address: ":80"
