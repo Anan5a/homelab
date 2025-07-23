@@ -8,6 +8,9 @@ providers:
   docker:
     exposedByDefault: false
 
+serversTransport:
+  insecureSkipVerify: true
+
 entryPoints:
   web:
     address: ":80"

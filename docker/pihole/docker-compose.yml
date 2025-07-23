@@ -60,7 +60,6 @@ services:
       - "traefik.http.routers.pihole.tls.certresolver=cf-letsencrypt"
       - "traefik.http.services.pihole.loadbalancer.server.scheme=https"
       - "traefik.http.services.pihole.loadbalancer.server.port=443"
-      - "traefik.http.services.pihole.loadbalancer.server.insecureskipverify=true"
     cap_add:
       # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
       # Required if you are using Pi-hole as your DHCP server, else not needed
