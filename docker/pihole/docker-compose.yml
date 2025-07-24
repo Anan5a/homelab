@@ -60,7 +60,7 @@ services:
       - "traefik.http.routers.pihole.tls.certresolver=cf-letsencrypt"
       - "traefik.http.services.pihole.loadbalancer.server.scheme=https"
       - "traefik.http.services.pihole.loadbalancer.server.port=443"
-      - "traefik.http.services.pihole.loadbalancer.serversTransport=forceInsecureTransport@file"
+      - "traefik.http.services.pihole.loadbalancer.serversTransport=forceInsecureTransport"
 
     cap_add:
       # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
