@@ -63,7 +63,7 @@ services:
       # - "traefik.http.services.sso.loadbalancer.server.port=9000"
       - "traefik.http.services.sso-tls.loadbalancer.server.port=9443"
       - "traefik.http.services.sso-tls.loadbalancer.server.scheme=https"
-      # - "traefik.http.services.sso-tls.loadbalancer.serversTransport=forceInsecureTransport"
+      - "traefik.http.services.sso-tls.loadbalancer.serversTransport=insecure-tls@file"
 
     depends_on:
       postgresql:
