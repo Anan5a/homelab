@@ -20,11 +20,10 @@ services:
       - "traefik.http.routers.traefik-secure.tls.domains[1].main=sayem.pro"
       - "traefik.http.routers.traefik-secure.tls.domains[1].sans=*.sayem.pro"
       - "traefik.http.routers.traefik-secure.service=api@internal"
-
       - "traefik.http.routers.traefik-secure.entrypoints=web"
       - "traefik.http.routers.traefik-secure.entrypoints=websecure"
       - "traefik.http.routers.traefik-secure.rule=Host(`traefik.lab.sayem.pro`)"
-      - "traefik.http.routers.traefik-secure.loadbalancer.server=8080"
+      - "traefik.http.routers.traefik-secure.loadbalancer.server.port=8080"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.certresolver=cf-letsencrypt"
 
