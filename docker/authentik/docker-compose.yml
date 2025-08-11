@@ -58,6 +58,7 @@ services:
       - "traefik.http.routers.sso-tls.entrypoints=websecure"
       # - "traefik.http.routers.sso.rule=Host(`sso.lab.sayem.pro`)"
       - "traefik.http.routers.sso-tls.rule=Host(`sso.lab.sayem.pro`)"
+      - "traefik.http.routers.sso-tls.rule=Host(`sso.sayem.pro`)"
       - "traefik.http.routers.sso-tls.tls=true"
       - "traefik.http.routers.sso-tls.tls.certresolver=cf-letsencrypt"
       # - "traefik.http.services.sso.loadbalancer.server.port=9000"
