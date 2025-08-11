@@ -2,6 +2,7 @@ version: "3.8"
 name: "Homelab v1.0.0"
 include:
   - ./network.yml
+  - portainer/docker-compose.yml
   - traefik/docker-compose.yml
   - authentik/docker-compose.yml
   - pihole/docker-compose.yml

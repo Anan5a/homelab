@@ -3,3 +3,6 @@ networks:
   homelab-net:
     name: homelab-network # Explicitly name the network to avoid project name prefixing
     driver: bridge
+  internal-net:
+    name: internal-network # Explicitly name the network to avoid project name prefixing
+    driver: bridge

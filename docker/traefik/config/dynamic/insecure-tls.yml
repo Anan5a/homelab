@@ -1,3 +1,4 @@
+# This file is used to configure Traefik to skip TLS verification for specific upstream servers.
 http:
   serversTransports:
     insecure-tls:
