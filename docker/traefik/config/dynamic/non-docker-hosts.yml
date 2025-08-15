@@ -1,0 +1,16 @@
+http:
+  routers:
+    my-router-name:
+      rule: "Host(`proxmox.lab.sayem.pro`)"
+      service: proxmox
+      entryPoints:
+        - websecure
+      tls: {}
+
+  services:
+    proxmox:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.0.153:8006"
+        serversTransport: insecure-tls@file
+        passHostHeader: true
