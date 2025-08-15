@@ -1,6 +1,6 @@
 http:
   routers:
-    my-router-name:
+    proxmox:
       rule: "Host(`proxmox.lab.sayem.pro`)"
       service: proxmox
       entryPoints:
