@@ -7,20 +7,14 @@ http:
         - websecure
       tls: {}
     truenas-filebrowser:
-      rule: "Host(`filebrowser.lab.sayem.pro`)"
+      rule: "Host(`filebrowser.lab.sayem.pro`) || Host(`filebrowser.sayem.pro`)"
       service: truenas-filebrowser
       entryPoints:
         - websecure
       tls: {}
     truenas-jellyfin:
-      rule: "Host(`jellyfin.lab.sayem.pro`)"
+      rule: "Host(`jellyfin.lab.sayem.pro`) || Host(`jellyfin.sayem.pro`)"
       service: truenas-jellyfin
-      entryPoints:
-        - websecure
-      tls: {}
-    truenas-speedtest:
-      rule: "Host(`speed.lab.sayem.pro`)"
-      service: truenas-speedtest
       entryPoints:
         - websecure
       tls: {}
@@ -42,11 +36,5 @@ http:
       loadBalancer:
         servers:
           - url: "http://10.1.1.223:30013"
-        serversTransport: insecure-tls@file
-        passHostHeader: true
-    truenas-speedtest:
-      loadBalancer:
-        servers:
-          - url: "https://10.1.1.209:3001"
         serversTransport: insecure-tls@file
         passHostHeader: true
