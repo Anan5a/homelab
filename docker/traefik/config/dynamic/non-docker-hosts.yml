@@ -6,11 +6,47 @@ http:
       entryPoints:
         - websecure
       tls: {}
+    truenas-filebrowser:
+      rule: "Host(`filebrowser.lab.sayem.pro`)"
+      service: truenas-filebrowser
+      entryPoints:
+        - websecure
+      tls: {}
+    truenas-jellyfin:
+      rule: "Host(`jellyfin.lab.sayem.pro`)"
+      service: truenas-jellyfin
+      entryPoints:
+        - websecure
+      tls: {}
+    truenas-speedtest:
+      rule: "Host(`speed.lab.sayem.pro`)"
+      service: truenas-speedtest
+      entryPoints:
+        - websecure
+      tls: {}
 
   services:
     proxmox:
       loadBalancer:
         servers:
           - url: "https://192.168.0.153:8006"
+        serversTransport: insecure-tls@file
+        passHostHeader: true
+    truenas-filebrowser:
+      loadBalancer:
+        servers:
+          - url: "http://10.1.1.223:30051"
+        serversTransport: insecure-tls@file
+        passHostHeader: true
+    truenas-jellyfin:
+      loadBalancer:
+        servers:
+          - url: "http://10.1.1.223:30013"
+        serversTransport: insecure-tls@file
+        passHostHeader: true
+    truenas-speedtest:
+      loadBalancer:
+        servers:
+          - url: "https://10.1.1.209:3001"
         serversTransport: insecure-tls@file
         passHostHeader: true
