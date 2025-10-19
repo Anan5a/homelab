@@ -18,6 +18,12 @@ http:
       entryPoints:
         - websecure
       tls: {}
+    truenas-nextcloud:
+      rule: "Host(`cloud.lab.sayem.pro`) || Host(`cloud.sayem.pro`)"
+      service: truenas-nextcloud
+      entryPoints:
+        - websecure
+      tls: {}
 
   services:
     proxmox:
@@ -36,5 +42,11 @@ http:
       loadBalancer:
         servers:
           - url: "http://10.1.1.223:30013"
+        serversTransport: insecure-tls@file
+        passHostHeader: true
+    truenas-nextcloud:
+      loadBalancer:
+        servers:
+          - url: "http://10.1.1.223:30027"
         serversTransport: insecure-tls@file
         passHostHeader: true
