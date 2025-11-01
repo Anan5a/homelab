@@ -24,6 +24,12 @@ http:
       entryPoints:
         - websecure
       tls: {}
+    truenas-nextcloud-whiteboard:
+      rule: "Host(`wb-cloud.lab.sayem.pro`)"
+      service: truenas-nextcloud-whiteboard
+      entryPoints:
+        - websecure
+      tls: {}
 
   services:
     proxmox:
@@ -48,5 +54,11 @@ http:
       loadBalancer:
         servers:
           - url: "http://10.1.1.223:30027"
+        serversTransport: insecure-tls@file
+        passHostHeader: true
+    truenas-nextcloud-whiteboard:
+      loadBalancer:
+        servers:
+          - url: "http://10.1.1.223:3002"
         serversTransport: insecure-tls@file
         passHostHeader: true
