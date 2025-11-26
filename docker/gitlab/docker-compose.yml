@@ -65,7 +65,3 @@ services:
     # --- Networking ---
     networks:
       - homelab-net # Traefik and GitLab MUST share this network
-
-networks:
-  homelab-net:
-    external: true
