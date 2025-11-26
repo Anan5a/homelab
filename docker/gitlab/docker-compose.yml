@@ -3,7 +3,7 @@ version: "3.7"
 services:
   gitlab:
     image: gitlab/gitlab-ce:latest
-    container_name: gitlab
+    # container_name: gitlab
     restart: unless-stopped
     hostname: "gitlab.sayem.pro"
 
