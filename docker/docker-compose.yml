@@ -7,3 +7,4 @@ include:
   - authentik/docker-compose.yml
   - pihole/docker-compose.yml
   - openspeedtest/docker-compose.yml
+  - gitlab/docker-compose.yml
