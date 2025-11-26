@@ -2,7 +2,7 @@ version: "3.8"
 services:
   traefik-reverse-proxy-entrypoint:
     # container_name: "traefik-proxy-entrypoint"
-    image: traefik:v3.4
+    image: traefik:v3.6.2
     restart: unless-stopped
     ports:
       - "80:80"
