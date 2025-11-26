@@ -33,3 +33,4 @@ tmp/
 
 # Kubernetes specific
 kubeconfig
+data/

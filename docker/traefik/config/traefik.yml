@@ -21,7 +21,8 @@ entryPoints:
     address: ":443"
   traefik: # Entrypoint for the Traefik dashboard
     address: ":8080"
-
+  ssh:
+    address: ":2244"
 certificatesResolvers:
   cf-letsencrypt:
     acme:

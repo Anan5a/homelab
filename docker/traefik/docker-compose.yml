@@ -7,6 +7,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "2244:2244"
       # - "8080:8080" # Port for the Traefik Web UI
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro # So that Traefik can listen to the Docker events (read-only)
