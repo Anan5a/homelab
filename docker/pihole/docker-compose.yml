@@ -1,7 +1,7 @@
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 services:
-  cloudflared:
-    container_name: cloudflared-pihole
+  cloudflared-pihole:
+    # container_name: cloudflared-pihole
     image: cloudflare/cloudflared:latest
     restart: unless-stopped
     # Embed cloudflared configuration directly in the command
@@ -24,7 +24,7 @@ services:
       - homelab-net
 
   pihole:
-    container_name: pihole
+    # container_name: pihole
     image: pihole/pihole:latest
     ports:
       # DNS Ports
@@ -74,6 +74,6 @@ services:
       - SYS_NICE
     restart: unless-stopped
     depends_on:
-      - cloudflared
+      - cloudflared-pihole
     networks:
       - homelab-net
