@@ -5,7 +5,7 @@ services:
     image: gitlab/gitlab-ce:latest
     # container_name: gitlab
     restart: unless-stopped
-    hostname: "gitlab.sayem.pro"
+    hostname: "gitlab.lab.sayem.pro"
     volumes:
       - ./config:/etc/gitlab
       - ./logs:/var/log/gitlab
@@ -14,10 +14,10 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         # Set the external URL to HTTPS, Traefik handles the termination
-        external_url 'https://gitlab.sayem.pro' 
+        external_url 'https://gitlab.lab.sayem.pro' 
 
         # Configure the SSH host and port GitLab should display for clone URLs
-        gitlab_rails['gitlab_ssh_host'] = 'gitlab.sayem.pro'
+        gitlab_rails['gitlab_ssh_host'] = 'gitlab.lab.sayem.pro'
         # This MUST match the port Traefik is listening on externally (2244)
         gitlab_rails['gitlab_shell_ssh_port'] = 2244 
 
@@ -32,7 +32,7 @@ services:
     # --- Traefik Labels (HTTP/S) ---
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gitlab.rule=Host(`gitlab.sayem.pro`)"
+      - "traefik.http.routers.gitlab.rule=Host(`gitlab.lab.sayem.pro`)"
       - "traefik.http.routers.gitlab.entrypoints=websecure" # Assuming HTTPS entrypoint in Traefik
       - "traefik.http.routers.gitlab.tls=true"
       - "traefik.http.routers.gitlab.tls.certresolver=cf-letsencrypt"
