@@ -45,3 +45,32 @@ services:
     # --- Networking ---
     networks:
       - homelab-net # Traefik and GitLab MUST share this network
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    # container_name: gitlab-runner
+    restart: always
+    
+    # 1. CRITICAL: Mount the host's Docker socket for the Docker executor.
+    # This allows the runner inside the container to spin up sibling containers for jobs.
+    volumes:
+      - ./runner-config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock:ro 
+      
+    # 2. Network: Must be on the same network as the GitLab service
+    networks:
+      - homelab-net
+      
+    # 3. CRITICAL: Automatic Registration (requires a Token from GitLab UI)
+    environment:
+      # The GitLab URL the Runner connects to (use the internal container name if not using the full external URL)
+      # Since it's on a shared network, we can use the container name 'gitlab'
+      RUNNER_EXECUTOR: docker
+      CI_SERVER_URL: http://gitlab # Use the service name (container name) to connect internally
+      REGISTRATION_TOKEN: 'glrt-oVtSFdmbBCw1SeF1FiR-X286MQpwOjEKdDozCnU6eg8.01.171uk4kez'
+      RUNNER_NAME: docker-runner
+      RUNNER_TAGS: 'docker, self-hosted'
+      
+      # # Configuration for the Docker Executor
+      # DOCKER_IMAGE: "docker:latest"
+      # DOCKER_PRIVILEGED: "true" # Required if you plan to build Docker images (Docker-in-Docker)
+      # DOCKER_NETWORK_MODE: [] # Connects job containers to the same network
