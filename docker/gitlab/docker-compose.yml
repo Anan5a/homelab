@@ -6,21 +6,11 @@ services:
     # container_name: gitlab
     restart: unless-stopped
     hostname: "gitlab.sayem.pro"
-
-    # 2. Ports: Only publish the SSH port *internally* if necessary,
-    # but we rely on Traefik for both SSH and HTTP/S.
-    # NOTE: We only publish the SSH port (22) to the host for Traefik's TCP router.
-    # We DO NOT publish 80/443 here.
-    # We must not use ports: section for HTTP/S when using Traefik
-    # We will publish 22:22 internally for the Traefik TCP router.
-
-    # --- Persistent Volumes ---
     volumes:
       - ./config:/etc/gitlab
       - ./logs:/var/log/gitlab
       - ./data:/var/opt/gitlab
 
-    # --- Environment & Configuration ---
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         # Set the external URL to HTTPS, Traefik handles the termination
@@ -42,17 +32,11 @@ services:
     # --- Traefik Labels (HTTP/S) ---
     labels:
       - "traefik.enable=true"
-
-      # HTTP/S Router (Web access)
       - "traefik.http.routers.gitlab.rule=Host(`gitlab.sayem.pro`)"
       - "traefik.http.routers.gitlab.entrypoints=websecure" # Assuming HTTPS entrypoint in Traefik
       - "traefik.http.routers.gitlab.tls=true"
-      # Assuming you have a certificate resolver defined in Traefik (e.g., 'le' for Let's Encrypt)
-      # - "traefik.http.routers.gitlab.tls.certresolver=le"
+      - "traefik.http.routers.gitlab.tls.certresolver=cf-letsencrypt"
       - "traefik.http.services.gitlab.loadbalancer.server.port=80" # GitLab's internal HTTP port
-
-      # --- Traefik Labels (SSH/TCP) ---
-      # SSH requires a TCP router and a matching entrypoint in Traefik
       - "traefik.tcp.routers.gitlab-ssh.rule=HostSNI(`*`)" # HostSNI must be '*' for generic SSH
       - "traefik.tcp.routers.gitlab-ssh.entrypoints=ssh" # Matches the 'ssh' EntryPoint on port 2244
       - "traefik.tcp.routers.gitlab-ssh.service=gitlab-ssh"
