@@ -13,10 +13,6 @@ services:
     # We DO NOT publish 80/443 here.
     # We must not use ports: section for HTTP/S when using Traefik
     # We will publish 22:22 internally for the Traefik TCP router.
-    ports:
-      # Expose the container's SSH port to itself/Traefik network.
-      # This is sometimes necessary for Traefik's TCP router to function correctly.
-      - "22:22"
 
     # --- Persistent Volumes ---
     volumes:
