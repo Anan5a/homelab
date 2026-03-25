@@ -8,3 +8,4 @@ include:
   - pihole/docker-compose.yml
   - openspeedtest/docker-compose.yml
   - gitlab/docker-compose.yml
+  - homeassistant/homeassistant.yml
