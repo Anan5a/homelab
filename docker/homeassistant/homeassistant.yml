@@ -15,8 +15,7 @@ services:
       TZ: "Asia/Dhaka"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homeassistant.rule=Host(`hass.lab.sayem.pro`)"
-      - "traefik.http.routers.homeassistant.rule=Host(`hass.sayem.pro`)"
+      - "traefik.http.routers.homeassistant.rule=Host(`hass.lab.sayem.pro`) || Host(`hass.sayem.pro`)"
       - "traefik.http.routers.homeassistant.entrypoints=websecure"
       - "traefik.http.routers.homeassistant.tls=true"
       - "traefik.http.routers.homeassistant.tls.certresolver=cf-letsencrypt"
