@@ -21,24 +21,24 @@ services:
       - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
 
   minimax-mcp:
-      container_name: minimax-mcp
-      image: python:3.12-slim
-      restart: unless-stopped
-      networks:
-        - homelab-net
-      environment:
-        - MINIMAX_API_KEY=${MINIMAX_API_KEY}
-        - MINIMAX_API_URL=https://api.minimax.io/v1
-        # Ensure python doesn't buffer logs so you can see errors immediately
-        - PYTHONUNBUFFERED=1
-      command: >
-        bash -c "pip install --no-cache-dir uv && 
-              python3 -m uvx --with minimax-coding-plan-mcp mcp-server-http --port 8000 --host 0.0.0.0"
-      healthcheck:
-        test: ["CMD", "timeout", "2s", "bash", "-c", "</dev/tcp/127.0.0.1/8000"]
-        interval: 15s
-        timeout: 5s
-        retries: 3
+    container_name: minimax-mcp
+    image: python:3.12-slim
+    restart: unless-stopped
+    networks:
+      - homelab-net
+    environment:
+      - MINIMAX_API_KEY=${MINIMAX_API_KEY}
+      - MINIMAX_API_URL=https://api.minimax.io/v1
+      - PYTHONUNBUFFERED=1
+    # Use the absolute path for uvx and ensure it listens on 0.0.0.0
+    command: >
+      bash -c "pip install --no-cache-dir uv && 
+             /usr/local/bin/uvx --with minimax-coding-plan-mcp mcp-server-http --port 8000 --host 0.0.0.0"
+    healthcheck:
+      test: ["CMD", "timeout", "2s", "bash", "-c", "</dev/tcp/127.0.0.1/8000"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
   
 
 networks:
