@@ -12,7 +12,7 @@ services:
       - 'ENABLE_OLLAMA=false'
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.open-webui.rule=Host(`ai.lab.sayem.pro`)"
+      - "traefik.http.routers.open-webui.rule=Host(`ai.lab.sayem.pro`) || Host(`ai.sayem.pro`)"
       - "traefik.http.routers.open-webui.entrypoints=websecure"
       - "traefik.http.routers.open-webui.tls=true"
       - "traefik.http.routers.open-webui.tls.certresolver=cf-letsencrypt"
