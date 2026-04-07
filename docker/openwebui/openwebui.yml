@@ -20,23 +20,17 @@ services:
       - "traefik.http.routers.open-webui.tls.certresolver=cf-letsencrypt"
       - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
 
-  minimax-mcp:
-    container_name: minimax-mcp
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    networks:
-      - homelab-net
-    environment:
-      - MINIMAX_API_KEY=${MINIMAX_API_KEY}
-      - MINIMAX_API_HOST=https://api.minimax.io/v1
-    # healthcheck:
-    #   # We use python to check the port since it's guaranteed to be there
-    #   test: ["CMD", "python3", "-c", "import socket; s = socket.socket(); s.connect(('127.0.0.1', 8000))"]
-    #   interval: 15s
-    #   timeout: 5s
-    #   retries: 3
+  mcpo:
+    container_name: mcpo
+    image: ghcr.io/open-webui/mcpo:main
+    command: mcpo --config /app/config/config.json --api-key "MCPisAwesome1234234!(*@Nxd)"
+    ports:
+    - "8000:8000"
+    volumes:
+    - ./config.json:/app/config/config.json
+    restart: always
+
+
 
 networks:
   homelab-net:
