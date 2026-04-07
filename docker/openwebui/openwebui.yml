@@ -33,12 +33,7 @@ services:
     # Use the absolute path for uvx and ensure it listens on 0.0.0.0
 
     command: >
-      bash -c "pip install --no-cache-dir uv &&
-           /usr/local/bin/uvx --with minimax-coding-plan-mcp \
-           minimax-coding-plan-mcp \
-           --transport sse \
-           --host 0.0.0.0 \
-           --port 8000"
+      bash -c "pip install --no-cache-dir uv && uvx --with minimax-coding-plan-mcp minimax-coding-plan-mcp --transport sse --host 0.0.0.0 --port 8000"
     healthcheck:
       test: ["CMD", "timeout", "2s", "bash", "-c", "</dev/tcp/127.0.0.1/8000"]
       interval: 15s
