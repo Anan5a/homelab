@@ -28,12 +28,16 @@ services:
       - homelab-net
     environment:
       - MINIMAX_API_KEY=${MINIMAX_API_KEY}
-      - MINIMAX_API_URL=https://api.minimax.io/v1
+      - MINIMAX_API_HOST=https://api.minimax.io/v1
       - PYTHONUNBUFFERED=1
     # Use the absolute path for uvx and ensure it listens on 0.0.0.0
+
     command: >
-      bash -c "pip install --no-cache-dir uv && 
-             /usr/local/bin/uvx --with minimax-coding-plan-mcp mcp-server-http --port 8000 --host 0.0.0.0"
+        bash -c "pip install --no-cache-dir uv && 
+           /usr/local/bin/uvx --with minimax-coding-plan-mcp \
+           --transport sse \
+           --host 0.0.0.0 \
+           --port 8000"
     healthcheck:
       test: ["CMD", "timeout", "2s", "bash", "-c", "</dev/tcp/127.0.0.1/8000"]
       interval: 15s
