@@ -22,25 +22,22 @@ services:
 
   minimax-mcp:
     container_name: minimax-mcp
-    image: python:3.12-slim
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
     networks:
       - homelab-net
     environment:
       - MINIMAX_API_KEY=${MINIMAX_API_KEY}
       - MINIMAX_API_HOST=https://api.minimax.io/v1
-      - PYTHONUNBUFFERED=1
-    # Use the absolute path for uvx and ensure it listens on 0.0.0.0
-
-    command: >
-      bash -c "pip install --no-cache-dir uv && uvx --with minimax-coding-plan-mcp minimax-coding-plan-mcp --transport sse --host 0.0.0.0 --port 8000"
     healthcheck:
-      test: ["CMD", "timeout", "2s", "bash", "-c", "</dev/tcp/127.0.0.1/8000"]
+      # We use python to check the port since it's guaranteed to be there
+      test: ["CMD", "python3", "-c", "import socket; s = socket.socket(); s.connect(('127.0.0.1', 8000))"]
       interval: 15s
       timeout: 5s
       retries: 3
-  
-
+      
 networks:
   homelab-net:
     external: true
