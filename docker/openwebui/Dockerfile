@@ -1,23 +1,21 @@
 FROM python:3.12-slim
 
-# Install system dependencies (needed for some MCP packages to build)
+# Install curl for healthchecks and networking tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+    curl && rm -rf /var/lib/apt/lists/*
 
-# Get the latest uv binaries
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+# Get the uv binary for fast installation
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 
-# Set the working directory
 WORKDIR /app
 
-# Enable uv's global cache to avoid permission issues in /root
-ENV UV_PROJECT_ENVIRONMENT=/app/.venv \
-    UV_CACHE_DIR=/app/.uv_cache \
-    PYTHONUNBUFFERED=1
+# Install the package globally in the container
+RUN uv pip install --system minimax-coding-plan-mcp
 
-# Expose the port
-EXPOSE 8000
+# Set essential environment variables
+ENV PYTHONUNBUFFERED=1
 
-# Explicitly run uvx
-ENTRYPOINT ["uvx", "--with", "minimax-coding-plan-mcp", "minimax-coding-plan-mcp", "--transport", "sse", "--host", "0.0.0.0", "--port", "8000"]
+# Use the direct module path. 
+# This ensures we see the traceback if it crashes.
+ENTRYPOINT ["python", "-m", "minimax_mcp.server"]
+CMD ["--transport", "sse", "--host", "0.0.0.0", "--port", "8000"]
