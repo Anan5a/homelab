@@ -20,4 +20,4 @@ ENV UV_PROJECT_ENVIRONMENT=/app/.venv \
 EXPOSE 8000
 
 # Explicitly run uvx
-ENTRYPOINT ["uvx", "minimax-coding-plan-mcp", "-y"]
+ENTRYPOINT ["uvx", "--with", "minimax-coding-plan-mcp", "minimax-coding-plan-mcp", "--transport", "sse", "--host", "0.0.0.0", "--port", "8000"]
