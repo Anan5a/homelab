@@ -10,6 +10,8 @@ services:
     environment:
       - TZ=Asia/Dhaka
       - 'ENABLE_OLLAMA=false'
+      # This points Open WebUI to the sidecar container
+      - 'ENABLE_MCP=true'
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.open-webui.rule=Host(`ai.lab.sayem.pro`) || Host(`ai.sayem.pro`)"
@@ -17,6 +19,24 @@ services:
       - "traefik.http.routers.open-webui.tls=true"
       - "traefik.http.routers.open-webui.tls.certresolver=cf-letsencrypt"
       - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
+
+  minimax-mcp:
+    container_name: minimax-mcp
+    image: ghcr.io/astral-sh/uv:python3.12-alpine
+    restart: unless-stopped
+    networks:
+      - homelab-net
+    environment:
+      - MINIMAX_API_KEY=${MINIMAX_API_KEY}
+      - MINIMAX_BASE_URL=https://api.minimax.io/v1
+    # We use uv to run the MCP server directly using the stdio-to-http bridge
+    command: >
+      sh -c "uvx minimax-coding-plan-mcp --port 8000"
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   homelab-net:
