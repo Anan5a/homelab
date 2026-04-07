@@ -1,0 +1,23 @@
+services:
+  open-webui:
+    container_name: open-webui
+    image: ghcr.io/open-webui/open-webui:main
+    restart: unless-stopped
+    networks:
+      - homelab-net
+    volumes:
+      - ./open-webui:/app/backend/data
+    environment:
+      - TZ=Asia/Dhaka
+      - 'ENABLE_OLLAMA=false'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.open-webui.rule=Host(`ai.lab.sayem.pro`)"
+      - "traefik.http.routers.open-webui.entrypoints=websecure"
+      - "traefik.http.routers.open-webui.tls=true"
+      - "traefik.http.routers.open-webui.tls.certresolver=cf-letsencrypt"
+      - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
+
+networks:
+  homelab-net:
+    external: true

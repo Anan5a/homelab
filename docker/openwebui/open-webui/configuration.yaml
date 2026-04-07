@@ -1,0 +1,5 @@
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.18.0.0/16  # This is the standard Docker bridge range
+    - 127.0.0.1
