@@ -22,7 +22,7 @@ services:
 
   minimax-mcp:
     container_name: minimax-mcp
-    image: ghcr.io/astral-sh/uv:python3.12-alpine
+    image: python:3.12-slim
     restart: unless-stopped
     networks:
       - homelab-net
