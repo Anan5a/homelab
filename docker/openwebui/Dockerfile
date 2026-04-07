@@ -1,15 +1,23 @@
-# Use a lightweight Python base
 FROM python:3.12-slim
 
-# Copy uv binaries directly from the official image
+# Install system dependencies (needed for some MCP packages to build)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Get the latest uv binaries
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    UV_CACHE_DIR=/tmp/.uv_cache
+# Set the working directory
+WORKDIR /app
 
-# Expose the MCP port
+# Enable uv's global cache to avoid permission issues in /root
+ENV UV_PROJECT_ENVIRONMENT=/app/.venv \
+    UV_CACHE_DIR=/app/.uv_cache \
+    PYTHONUNBUFFERED=1
+
+# Expose the port
 EXPOSE 8000
 
-# Run the MCP server
+# Explicitly run uvx
 ENTRYPOINT ["uvx", "--with", "minimax-coding-plan-mcp", "minimax-coding-plan-mcp", "--transport", "sse", "--host", "0.0.0.0", "--port", "8000"]
