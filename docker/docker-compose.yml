@@ -9,3 +9,4 @@ include:
   - openspeedtest/docker-compose.yml
   - gitlab/docker-compose.yml
   - homeassistant/homeassistant.yml
+  - openwebui/openwebui.yml
