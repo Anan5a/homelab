@@ -9,6 +9,7 @@ services:
     #   - "3080:80"
     volumes:
       - ./data:/app/data
+      - ./data/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     environment:
       - TZ=Asia/Dhaka
     labels:
@@ -17,7 +18,7 @@ services:
       - "traefik.http.routers.velxio.entrypoints=websecure"
       - "traefik.http.routers.velxio.tls=true"
       - "traefik.http.routers.velxio.tls.certresolver=cf-letsencrypt"
-      - "traefik.http.services.velxio.loadbalancer.server.port=3080"
+      - "traefik.http.services.velxio.loadbalancer.server.port=80"
 
 networks:
   homelab-net:
