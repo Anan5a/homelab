@@ -17,7 +17,7 @@ services:
       - "traefik.http.routers.velxio.entrypoints=websecure"
       - "traefik.http.routers.velxio.tls=true"
       - "traefik.http.routers.velxio.tls.certresolver=cf-letsencrypt"
-      - "traefik.http.services.velxio.loadbalancer.server.port=80"
+      - "traefik.http.services.velxio.loadbalancer.server.port=3080"
 
 networks:
   homelab-net:
