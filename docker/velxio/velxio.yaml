@@ -1,7 +1,7 @@
 services:
   velxio:
     container_name: velxio
-    image: ghcr.io/davidmonterocrespo24/velxio:master
+    image: davidmonterocrespo/velxio:master
     restart: unless-stopped
     networks:
       - homelab-net
