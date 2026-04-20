@@ -10,3 +10,4 @@ include:
   - gitlab/docker-compose.yml
   - homeassistant/homeassistant.yml
   - openwebui/openwebui.yml
+  - velxio/velxio.yaml
