@@ -1,0 +1,28 @@
+
+
+services:
+  db:
+    image: ankane/pgvector:latest
+    container_name: pgvector
+    restart: unless-stopped
+    networks:
+      - homelab-net
+    environment:
+      - POSTGRES_DB=openwebui
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=owuipassword780
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    command: >
+      postgres 
+      -c shared_buffers=4GB 
+      -c max_parallel_maintenance_workers=3
+      -c maintenance_work_mem=1GB
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+networks:
+  homelab-net:
+    external: true
+

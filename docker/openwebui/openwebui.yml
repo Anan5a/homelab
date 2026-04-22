@@ -1,4 +1,17 @@
 services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    networks:
+      - homelab-net
+    volumes:
+      - ./ollama_data:/root/.ollama
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+
   open-webui:
     container_name: open-webui
     image: ghcr.io/open-webui/open-webui:main
@@ -9,9 +22,11 @@ services:
       - ./open-webui:/app/backend/data
     environment:
       - TZ=Asia/Dhaka
-      - 'ENABLE_OLLAMA=false'
-      # This points Open WebUI to the sidecar container
+      - 'ENABLE_OLLAMA=true'
       - 'ENABLE_MCP=true'
+      - 'VECTOR_DB=pgvector'
+      - 'DATABASE_URL=postgresql://user:owuipassword780@db:5432/openwebui'
+      - 'OLLAMA_BASE_URL=http://ollama:11434'
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.open-webui.rule=Host(`ai.lab.sayem.pro`) || Host(`ai.sayem.pro`)"
@@ -19,6 +34,14 @@ services:
       - "traefik.http.routers.open-webui.tls=true"
       - "traefik.http.routers.open-webui.tls.certresolver=cf-letsencrypt"
       - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
+    depends_on:
+      - pgvector
+      - ollama
+
+    deploy:
+      resources:
+        limits:
+          memory: 2G
 
   mcpo:
     container_name: mcpo
@@ -39,3 +62,4 @@ services:
 networks:
   homelab-net:
     external: true
+
