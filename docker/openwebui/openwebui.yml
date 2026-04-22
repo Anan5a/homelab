@@ -35,7 +35,7 @@ services:
       - "traefik.http.routers.open-webui.tls.certresolver=cf-letsencrypt"
       - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
     depends_on:
-      - pgvector
+      - db
       - ollama
 
     deploy:
