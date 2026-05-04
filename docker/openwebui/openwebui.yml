@@ -7,6 +7,8 @@ services:
       - homelab-net
     volumes:
       - ./ollama_data:/root/.ollama
+    env:
+      - OLLAMA_NUM_PARALLEL=1
     deploy:
       resources:
         limits:
@@ -41,7 +43,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 2G
+          memory: 4G
 
   mcpo:
     container_name: mcpo
