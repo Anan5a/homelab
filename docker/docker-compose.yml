@@ -12,3 +12,4 @@ include:
   - database/database.yml
   - openwebui/openwebui.yml
   - velxio/velxio.yaml
+  - supabase/supabase.yml
