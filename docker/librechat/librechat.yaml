@@ -6,7 +6,7 @@ endpoints:
   custom:
     - name: "Ollama Cloud"
       apiKey: "${OLLAMA_CLOUD_KEY}"
-      baseURL: "api.ollama.com/v1" # Must end in /v1
+      baseURL: "https://api.ollama.com/v1" # Must end in /v1
       models:
         default: ["deepseek-v4-flash:cloud"] # Optional fallback model if fetch fails
         fetch: true
