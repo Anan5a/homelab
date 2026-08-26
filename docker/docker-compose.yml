@@ -13,3 +13,4 @@ include:
   - openwebui/openwebui.yml
   - velxio/velxio.yaml
   - supabase/supabase.yml
+  - librechat/docker-compose.yml

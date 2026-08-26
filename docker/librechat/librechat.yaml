@@ -1,0 +1,11 @@
+endpoints:
+  custom:
+    - name: "Ollama Cloud"
+      apiKey: "${OLLAMA_CLOUD_KEY}"
+      baseURL: "https://https://api.ollama.com/v1" # Must end in /v1
+      models:
+        default: ["deepseek-v4-flash:cloud"] # Optional fallback model if fetch fails
+        fetch: true
+      titleConvo: true
+      titleModel: "gemma4:31b-cloud"
+      modelDisplayLabel: "Ollama Cloud"

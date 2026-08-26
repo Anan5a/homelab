@@ -1,0 +1,56 @@
+services:
+  librechat:
+    image: ghcr.io/danny-avila/librechat-dev:latest
+    container_name: librechat
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    depends_on:
+      - mongodb
+      - meilisearch
+    networks:
+      - homelab-net
+      - librechat_internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.librechat.rule=Host(`chat.lab.sayem.pro`) || Host(`chat.sayem.pro`)"
+      - "traefik.http.routers.librechat.entrypoints=websecure"
+      - "traefik.http.routers.librechat.tls=true"
+      - "traefik.http.routers.librechat.tls.certresolver=cf-letsencrypt"
+      - "traefik.http.services.librechat.loadbalancer.server.port=3080"
+      
+      
+
+  mongodb:
+    image: mongo:latest
+    container_name: librechat_db
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - librechat_internal
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.12
+    container_name: librechat_search
+    restart: always
+    environment:
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+    volumes:
+      - meili_data:/meili_data
+    networks:
+      - librechat_internal
+
+networks:
+  homelab-net:
+    external: true
+  librechat_internal:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  meili_data:
