@@ -11,5 +11,6 @@ endpoints:
         default: ["deepseek-v4-flash:cloud"] # Optional fallback model if fetch fails
         fetch: true
       titleConvo: true
+      titleMethod: "completion"
       titleModel: "gemma4:31b-cloud"
       modelDisplayLabel: "Ollama Cloud"
