@@ -7,10 +7,10 @@ include:
   - authentik/docker-compose.yml
   - pihole/docker-compose.yml
   - openspeedtest/docker-compose.yml
-  - gitlab/docker-compose.yml
+#  - gitlab/docker-compose.yml
   - homeassistant/homeassistant.yml
   - database/database.yml
-  - openwebui/openwebui.yml
-  - velxio/velxio.yaml
-  - supabase/supabase.yml
+#  - openwebui/openwebui.yml
+#  - velxio/velxio.yaml
+#  - supabase/supabase.yml
   - librechat/docker-compose.yml
