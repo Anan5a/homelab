@@ -8,7 +8,7 @@ include:
   - pihole/docker-compose.yml
   - openspeedtest/docker-compose.yml
 #  - gitlab/docker-compose.yml
-  - homeassistant/homeassistant.yml
+  # - homeassistant/homeassistant.yml
   - database/database.yml
 #  - openwebui/openwebui.yml
 #  - velxio/velxio.yaml

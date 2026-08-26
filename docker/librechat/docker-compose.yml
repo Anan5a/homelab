@@ -17,6 +17,7 @@ services:
       - librechat_internal
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=homelab-net"
       - "traefik.http.routers.librechat.rule=Host(`chat.lab.sayem.pro`) || Host(`chat.sayem.pro`)"
       - "traefik.http.routers.librechat.entrypoints=websecure"
       - "traefik.http.routers.librechat.tls=true"
