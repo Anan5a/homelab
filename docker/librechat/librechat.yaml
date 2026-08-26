@@ -12,5 +12,5 @@ endpoints:
         fetch: true
       titleConvo: true
       titleMethod: "completion"
-      titleModel: "gemma4:31b-cloud"
+      titleModel: "current_model"
       modelDisplayLabel: "Ollama Cloud"
